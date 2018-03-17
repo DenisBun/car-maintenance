@@ -6,11 +6,20 @@ import './Header.css';
 
 
 const Header = props => ( 
-  <div className='Header'>
-    <div className='app-logo'>
-      <img src={appLogo} alt="logo"/>  
+  <header className="header">
+    <div className="header-limiter">
+      <h1 className="pulse"><a href="#">Car<span>Manager</span></a></h1>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Pricing</a>
+      </nav>
+      <ul>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Sign up</a></li>
+      </ul>
     </div>
-  </div>
+  </header>
 );
   
 
