@@ -2,11 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import Routes from './routes';
+import App from './components/App/App';
 import registerServiceWorker from './registerServiceWorker';
-import configureStore from './config/store';
-
-const store = configureStore();
+import { store } from './config/store';
 
 const muiTheme = createMuiTheme({
   typography: {
@@ -64,7 +62,7 @@ const muiTheme = createMuiTheme({
 ReactDOM.render(
   (<MuiThemeProvider theme={muiTheme}>
     <Provider store={store}>
-      <Routes />
+      <App />
     </Provider>
     </MuiThemeProvider>  
   ), document.getElementById('root'));

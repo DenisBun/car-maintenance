@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import appLogo from './img/wheel-logo.png';
 import './Header.css';
+import Button from '../Common/Button/Button';
 
 
 
@@ -8,15 +10,16 @@ import './Header.css';
 const Header = props => ( 
   <header className="header">
     <div className="header-limiter">
-      <h1 className="pulse"><a href="#">Car<span>Manager</span></a></h1>
+      <h1 className="pulse"><Link to="/">Car<span>Manager</span></Link></h1>
       <nav>
-        <a href="#">Home</a>
+        <Link to="/">Home</Link>
         <a href="#">About</a>
         <a href="#">Pricing</a>
+        { props.isLoggedIn && <Link to="/BuyCar">Buy car</Link> }
       </nav>
       <ul>
-        <li><a href="#">Login</a></li>
-        <li><a href="#">Sign up</a></li>
+        {!props.isLoginPage && <li><Link to="/Login">Login</Link></li>}
+        <li><Button>Sign up</Button></li>
       </ul>
     </div>
   </header>

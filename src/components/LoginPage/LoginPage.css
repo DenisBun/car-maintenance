@@ -1,0 +1,80 @@
+.background-porsche {
+  height: calc(100vh - 80px);
+  width: 100%;
+  background: url('./img/porsche-911-carrera.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: bottom center;
+  background-origin: content-box;
+}
+
+.loginForm {
+  width: 400px;  
+  border: 4px solid linear-gradient(to bottom, #608bd2, #222227);
+}
+
+.form form {
+  margin-bottom: 10px;
+}
+
+.loginForm .form .login {
+  padding: 10px;
+  color: white;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.authForm {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.35);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+  background-color: white;
+}
+
+.authForm .formLabel {
+  font-size: 1.5em;
+  background-color: #605a57;
+  color: white;
+  padding: 20px;
+}
+
+.authForm .form {
+  padding: 20px;
+  background-color: #e4dfdfa8;
+  color: #454345;
+}
+
+.authForm .form .inputLabel {
+  display: block;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.authForm .form .errorMsg {
+  font-family: 'Oswald', sans-serif;
+  color: #f44336;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+.authForm .form .errorMsg .error {
+  margin-bottom: 5px;
+}  
+  
+.authForm .form .fieldWrapper {
+  margin-bottom: 20px;
+}
+.authForm .form .fieldWrapper input {
+  width: 100%;
+}
+    
+.signup-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  
+

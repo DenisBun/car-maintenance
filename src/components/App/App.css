@@ -1,12 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   height: 100vh;
   margin: 0px;
   padding: 0px;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
+
 .App {
   height: 100vh;
-  background: linear-gradient(to bottom, #333336, #222227);
+  background: #484745;
 }
 
 

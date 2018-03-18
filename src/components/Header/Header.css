@@ -17,7 +17,7 @@
 
 .header .header-limiter h1{
 	float: left;
-	font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+	font-size:28px;
 	line-height: 40px;
 	margin: 0;
 }
@@ -34,7 +34,7 @@
 }
 
 .header .header-limiter nav {
-	font:16px Arial, Helvetica, sans-serif;
+	font-size:16px;
 	line-height: 40px;
 	float: left;
 	margin: 0 0 0 60px;
@@ -58,7 +58,8 @@
 /* Login/Sign up buttons */
 
 .header .header-limiter ul {
-	font: 14px Arial, Helvetica, sans-serif;
+	margin-top: 5px;
+	font-size: 14px;
 	list-style: none;
 	line-height: 1;
 	float: right;
