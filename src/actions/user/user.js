@@ -65,21 +65,21 @@ export const userLogoutFailure = response => ({
   errorMessage: response.message,
 });
 
-// export const loginUser = creds => (dispatch => {
-//   dispatch(userLoginRequest());
-//   return http.post(LOGIN_PATH, creds)
-//     .then(response => {
-//       if (response.success) {
-//         dispatch(
-//           userLoginSuccess(response)
-//         );
-//       } else {
-//         dispatch(
-//           userLoginFailure(response)
-//         );
-//       }
-//     });
-// });
+export const loginUser = creds => (dispatch => {
+  dispatch(userLoginRequest());
+  // return http.post(LOGIN_PATH, creds)
+  //   .then(response => {
+  //     if (response.success) {
+        dispatch(
+          userLoginSuccess(creds)
+        );
+    //   } else {
+    //     dispatch(
+    //       userLoginFailure(response)
+    //     );
+    //   }
+    // });
+});
 
 // export const logoutUser = () => (dispatch => {
 //   dispatch(userLogoutRequest());

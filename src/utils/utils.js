@@ -1,6 +1,7 @@
 
  import { cond, isEqual, eq, constant, stubTrue } from 'lodash/fp';
  import { darkGray, blue, greenLime, white, BLUE, GRAY, GREEN, WHITE } from '../constants/colors';
+ import { store } from '../config/store';
 
 
 
@@ -20,3 +21,7 @@ export const checkPaginationChanges = (props, nextProps) =>
 
 export const isValid = validationResultArray =>
   !validationResultArray.some(validationResult => validationResult === false);
+
+export function isLoggedIn() {
+  return store.getState().user.isAuthenticated;
+}

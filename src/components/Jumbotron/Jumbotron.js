@@ -14,6 +14,7 @@ const Jumbotron = ({ isLoggedIn }) => (
           <h2 className="subtitle"><span className="attentionText">The only</span> thing you need for your car maintenance!</h2>
           <Link to="/Login" style={{ textDecoration: 'none', paddingBottom: '50px' }}>
               <Button
+                className="pulse-action"
                 onClick={() => {console.log('Get started')}}
               >
                 Get In Action!

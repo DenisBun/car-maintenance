@@ -5,16 +5,14 @@ import { isEqual, includes } from 'lodash';
 import Header from '../Header/Header';
 import Button from '../Common/Button/Button';
 import Input from '../Common/Input/Input';
-// import { isLoggedIn } from 'utils/auth';
-// import { isValid } from 'utils/utils';
+import { isValid, isLoggedIn } from '../../utils/utils';
 // import { GREEN } from 'constants/colorConfig';
-// import { loginUser } from 'actions';
+import { loginUser } from '../../actions/user/user';
 // import { greenLime } from 'constants/colors';
 
 import './LoginPage.css';
 
 const mapStateToProps = state => ({
-  currentPageLocale: state.locales.currentPageLocale,
   isAuthentication: state.user.isAuthentication,
   isAuthenticated: state.user.isAuthenticated,
   messageText: state.user.messageText,
@@ -32,11 +30,11 @@ export class LoginPage extends Component {
     rememberMe: false,
   };
 
-  // componentWillMount() {
-  //   if (isLoggedIn()) {
-  //     this.props.history.push('/Main/PersonalAssignments');
-  //   }
-  // }
+  componentWillMount() {
+    if (isLoggedIn()) {
+      this.props.history.push('/');
+    }
+  }
 
   handleLoginChange = ({ target: { value } }) => {
     this.setState({ login: value });
@@ -52,17 +50,17 @@ export class LoginPage extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // if (isValid(
-    //   [this.validateEmail(this.state.login),
-    //     this.validatePassword(this.state.password)]
-    // )) {
-    //   const creds = {
-    //     login: this.state.login,
-    //     password: this.state.password,
-    //     rememberMe: this.state.rememberMe,
-    //   };
-    //   this.props.loginUser(creds);
-    // }
+    if (isValid(
+      [this.validateEmail(this.state.login),
+        this.validatePassword(this.state.password)]
+    )) {
+      const creds = {
+        login: this.state.login,
+        password: this.state.password,
+      };
+      this.props.loginUser(creds);
+      this.props.history.push('/');
+    }
   };
 
   validateEmail = email => {
@@ -70,8 +68,8 @@ export class LoginPage extends Component {
     const specialsPattern = /^(?=.*[! #%&])/;
     const errors = [];
 
-    !emailPattern.test(email) && errors.push('Warning pattern');
-    specialsPattern.test(email) && errors.push('Warning Special');
+    !emailPattern.test(email) && errors.push('Email pattern: myemail@example.com');
+    specialsPattern.test(email) && errors.push('Special characters are prohibited');
 
     this.setState({
       errorsEmail: [...errors],
@@ -86,10 +84,10 @@ export class LoginPage extends Component {
     const errors = [];
 
     if (!upperDigitPattern.test(password)) {
-      errors.push('password.upperDigitPattern');
+      errors.push('Password must contain at least 1 digit and 1 upper case letter');
     }
     if (!lengthPattern.test(password)) {
-      errors.push('password.lengthPattern');
+      errors.push('Password length must be from 8 to 32 characters');
     }
 
     this.setState({
@@ -126,7 +124,6 @@ export class LoginPage extends Component {
                     this.setState({ errorsEmail: [] });
                     this.handleLoginChange(e);
                   }}
-                // color={greenLime}
                   placeholder="myemail@example.com"
                   marginBottom="30"
                 />
@@ -137,7 +134,6 @@ export class LoginPage extends Component {
                   shrink
                   fullWidth
                   min="1"
-                // color={greenLime}
                   type="password"
                   id="password"
                   name="password"
@@ -170,9 +166,9 @@ export class LoginPage extends Component {
   }
 }
 
-// export default connect(
-//   mapStateToProps,
-//   { loginUser }
-// )(LoginPage);
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(LoginPage);
 
-export default LoginPage;
+// export default LoginPage;

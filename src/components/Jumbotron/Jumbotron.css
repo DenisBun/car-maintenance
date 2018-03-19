@@ -1,5 +1,6 @@
 
 .content {
+  height: calc(100vh - 80px);
   background-color: #555556!important;
   color: #f5f5f5;
   font-family: 'Open Sans', sans-serif;
@@ -43,6 +44,32 @@
 
 .attentionText {
   color: #5383d3;
+}
+
+.pulse-action {
+  width: 350px;
+  height: 70px;
+  box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+  animation: pulse-action 2s infinite;
+}
+
+.pulse-action:hover {
+  animation: none;
+}
+
+@keyframes pulse-action {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
 }
 
 @media all and (max-width: 1500px) {
