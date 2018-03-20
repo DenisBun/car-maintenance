@@ -50,11 +50,10 @@ export const userLogoutRequest = () => ({
   timestamp: Date.now(),
 });
 
-export const userLogoutSuccess = response => ({
+export const userLogoutSuccess = () => ({
   type: USER_LOGOUT_SUCCESS,
   callInProgress: false,
   timestamp: Date.now(),
-  message: response.message,
 });
 
 export const userLogoutFailure = response => ({
@@ -81,18 +80,18 @@ export const loginUser = creds => (dispatch => {
     // });
 });
 
-// export const logoutUser = () => (dispatch => {
-//   dispatch(userLogoutRequest());
-//   return http.post(LOGOUT_PATH, {})
-//     .then(response => {
-//       if (response.success) {
-//         dispatch(
-//           userLogoutSuccess(response)
-//         );
-//       } else {
-//         dispatch(
-//           userLogoutFailure(response)
-//         );
-//       }
-//     });
-// });
+export const logoutUser = () => (dispatch => {
+  dispatch(userLogoutRequest());
+  // return http.post(LOGOUT_PATH, {})
+  //   .then(response => {
+  //     if (response.success) {
+        dispatch(
+          userLogoutSuccess()
+        );
+    //   } else {
+    //     dispatch(
+    //       userLogoutFailure(response)
+    //     );
+    //   }
+    // });
+});

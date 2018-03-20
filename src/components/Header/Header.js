@@ -1,11 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import './Header.css';
-import Button from '../Common/Button/Button';
-import { isLoggedIn } from '../../utils/utils';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
+import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -14,6 +12,11 @@ import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Switch from 'material-ui/Switch';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import './Header.css';
+import Button from '../Common/Button/Button';
+import { isLoggedIn } from '../../utils/utils';
+import { logoutUser } from '../../actions/user/user';
+
 
 const styles = {
   root: {
@@ -83,7 +86,13 @@ class Header extends Component {
                     onClose={this.handleClose}
                   >
                     <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={this.handleClose}>Log out</MenuItem>
+                    <MenuItem onClick={() => { 
+                      this.handleClose();
+                      this.props.logoutUser();
+                      this.props.history.push('/');
+                      }}>
+                      Log out
+                    </MenuItem>
                   </Menu>
                 </div>)
               : (<ul style={{ display: 'flex', alignItems: 'center' }}>
@@ -108,4 +117,8 @@ class Header extends Component {
 
 
 
-export default withStyles(styles)(Header);
+export default connect(
+  null, 
+  { logoutUser }
+)(withStyles(styles)(Header));
+
