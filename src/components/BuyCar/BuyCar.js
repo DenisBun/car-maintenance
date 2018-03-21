@@ -14,6 +14,7 @@ import { searchCar } from '../../actions/buyCar/buyCar';
 const mapStateToProps = state => ({
   isFetching: state.buyCar.isFetching,
   cars: state.buyCar.cars,
+  initialPage: state.buyCar.pagination,
 });
 class BuyCar extends Component {
 
@@ -22,7 +23,11 @@ class BuyCar extends Component {
     //searchResults: [],
     make: '',
     model: '',
-    
+    pagination: {
+      pages: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      currentPage: 1,
+    },
+    // currentCar: {},    
   }
 
   handleCarMakeChange = ({ target: { value } }) => {
@@ -35,6 +40,10 @@ class BuyCar extends Component {
 
   handleSearch = () => {
     this.props.searchCar(`${CAR_SEARCH_API_URL}${CAR_SEARCH_API_KEY}${this.state.make && `make=${this.state.make}`}${this.state.model && `&model=${this.state.model}`}`);
+  }
+
+  setPage = (page) => {
+    this.setState({ currentPage: page, currentCar:  this.props.cars[page - 1]})
   }
 
   render() {
@@ -80,12 +89,19 @@ class BuyCar extends Component {
         {/* <div>{this.state.searchResults.length && this.state.initialMessage}</div> */}
         <div>
           {!this.props.isFetching
-            ? this.props.cars.map((car, index) => (
-              <Car key={index} car={car}/>
-            ))
+            ? this.state.currentCar
+                ? <Car car={this.state.currentCar}/>
+                : <Car car={this.props.cars[0]}/>
             : <CircularProgress style={{ color: 'purple' }} thickness={7} />
           }
         </div>
+        <ul>
+          {this.state.pagination.pages.map((page, index) => 
+            <li key={index}>
+              <a onClick={() => this.setPage(page)}>{page}</a>
+            </li>
+          )}
+        </ul>
       </div>
     )
   }

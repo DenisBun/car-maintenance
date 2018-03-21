@@ -21,6 +21,7 @@ const buyCar = (state = initialState, action) => {
         ...state,
         cars: action.cars,
         isFetching: false,
+        pagination: 1,
       };
     case SEARCH_CAR_FAILURE:
       return {

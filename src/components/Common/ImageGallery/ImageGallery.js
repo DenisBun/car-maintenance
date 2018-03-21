@@ -26,7 +26,7 @@ class Gallery extends React.Component {
     return (
       <ImageGallery 
         items={this.props.images.map(image => Object.assign({}, {original: image || ImgNotFound, thumbnail: image || ImgNotFound})) || images}
-        thumbnailPosition="left"
+        thumbnailPosition="bottom"
         showBullets={true}
         showIndex={true}
         showFullscreenButton={false}
