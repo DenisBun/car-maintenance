@@ -1,3 +1,25 @@
 .carWrapper {
-  
+  margin: 50px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #3f3f3f;
+  box-shadow: 0px 0px 54px 1px rgba(184,177,184,1);  
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.carHeading {
+  text-align: center;
+  font-size: 30px;
+  color: #ffffff;
+}
+
+.buyCarBtn {
+  text-decoration: none;
+  color: wheat;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 20px;
 }

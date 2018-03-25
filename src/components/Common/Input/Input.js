@@ -41,45 +41,43 @@ const Input = ({
   inputLabel, fullWidth, shrink, marginBottom, placeholder,
   defaultValue, value, ...rest
 }) => (
-  <div className={classNameFControl}>
-    <FormControl
-      fullWidth={fullWidth}
-      error={!isEmpty(error)}
-      color={colorConfig}
-    >
-      {inputLabel
-        ? <InputLabel
-          FormControlClasses={{
-            focused: classes.inputLabelFocused,
-            root: classes.inputLabel,
-          }}
-          required={rest.required}
-        >
-          {inputLabel}
-        </InputLabel>
-        : null
-      }
-      <InputField
-        classes={{
-          root: classes.inputRoot,
-          inkbar: classes.inputInkbar,
-          input: classes.input,
-          underline: classes.underline,
+  <FormControl
+    fullWidth={fullWidth}
+    error={!isEmpty(error)}
+    color={colorConfig}
+  >
+    {inputLabel
+      ? <InputLabel
+        FormControlClasses={{
+          focused: classes.inputLabelFocused,
+          root: classes.inputLabel,
         }}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        value={value}
-        {...rest}
-      />
-      <FormHelperText
-        classes={{
-          root: classes.errorText,
-        }}
+        required={rest.required}
       >
-        {error}
-      </FormHelperText>
-    </FormControl>
-  </div>
+        {inputLabel}
+      </InputLabel>
+      : null
+    }
+    <InputField
+      classes={{
+        root: classes.inputRoot,
+        inkbar: classes.inputInkbar,
+        input: classes.input,
+        underline: classes.underline,
+      }}
+      defaultValue={defaultValue}
+      placeholder={placeholder}
+      value={value}
+      {...rest}
+    />
+    <FormHelperText
+      classes={{
+        root: classes.errorText,
+      }}
+    >
+      {error}
+    </FormHelperText>
+  </FormControl>
 );
 
 

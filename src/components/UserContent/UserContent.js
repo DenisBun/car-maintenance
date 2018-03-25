@@ -59,7 +59,7 @@ const  UserContent = (props) => {
                 image={el.image}
                 title={el.title}
               />
-              <figcaption>
+              <figcaption onClick={() => {props.history.push(el.actionBtnLink)}}>
                 {el.title}
               </figcaption>
             </figure>

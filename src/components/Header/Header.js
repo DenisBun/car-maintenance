@@ -58,8 +58,8 @@ class Header extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              <Link to="/" className="pulse" style={{ textDecoration: 'none', color: 'white' }}>Car<span>Manager</span></Link>
-              { isLoggedIn() && <Link to="/BuyCar">Buy car</Link> }
+              <Link to="/" className="pulse" style={{ textDecoration: 'none', color: 'white' }}>Car<span style={{ color: '#5383d3'}}>Manager</span></Link>
+              {/* { isLoggedIn() && <Link to="/BuyCar">Buy car</Link> } */}
             </Typography>
             {isLoggedIn()
               ? (<div>
@@ -102,7 +102,7 @@ class Header extends Component {
                     </Link>
                   }
                   {!this.props.isRegistrationPage &&
-                    <Link to="/Registration" style={{ textDecoration: 'none', marginLeft: '20px' }}>
+                    <Link to="/Registration" style={{ textDecoration: 'none', marginLeft: '20px', background: '#5383d3' }}>
                       <Button>Sign up</Button>
                     </Link>
                   }
