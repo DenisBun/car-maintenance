@@ -1,0 +1,9 @@
+{
+  "development-local": {
+    "username": "root",
+    "password": "root",
+    "database": "car_maintenance",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
