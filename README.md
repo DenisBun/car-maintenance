@@ -1,15 +1,26 @@
-npm i
-npm run start
+### Car-maintenance App
 
-BE
+**ToDo:**
+- registration page
+- repair page
+- upgrade page
+- admin page
+
+To install all dependencies:
+```sh
+npm i
+```
+To run UI part: 
+```sh
+npm run start
+```
+BE migrations and seeders:
+```sh
 npm run db:migrate
 npm run db:seed
-
-ToDo:
- 1 - registration page
- 2 - repair page
- 3 - upgrade page
-
- 4 - Express + MySql
- 5 - admin page
+```
+To run server:
+```sh
+npm run server
+```
 

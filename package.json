@@ -27,7 +27,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "db:migrate": "cross-env NODE_ENV=development-local sequelize db:migrate",
-    "db:seed": "cross-env NODE_ENV=development-local sequelize db:seed:all"
+    "db:seed": "cross-env NODE_ENV=development-local sequelize db:seed:all",
+    "server": "cross-env NODE_ENV=development nodemon --config src/nodemon.json --experimental-modules server/index.mjs"
   },
   "devDependencies": {
     "cross-env": "5.1.4",
