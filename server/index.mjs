@@ -1,32 +1,32 @@
-import mysql from 'mysql';
+import mysql from 'promise-mysql';
 import express from 'express';
 import bodyParser from 'body-parser';
-import * as userActions from './src/actions/users/usersActions';
 
 const app = express();
 app.use(bodyParser.json());
 
-const con = mysql.createConnection({
+const initialConnection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'root',
   database : 'car_maintenance'
 });
 
-const connection = cb => () => con.connect(err => {
-  if (err) throw err;
-  cb();
-  con.end();
-})
-
-app.get('/users', (req, res) => {
-  connection(
-    con.query("SELECT * FROM users", (err, result) => {
-      if (err) throw err;
-      res.send(result);
-    })
-  )
+app.post('/users/registration', (req, res) => {
+  let connection;
+  initialConnection.then(conn => {
+    connection = conn;
+    return connection.query('SELECT * FROM users')
+  }).then(res => {
+    const isEmailAvailable = res.some(({ email }) => email === req.body.email);
+    return !isEmailAvailable && connection.query('INSERT INTO users (email,password) VALUES(?,?)', [req.body.email, req.body.password]);
+  }).then(queryResult => {
+    return !queryResult ? res.status(400).json('Email is already in use') : res.status(200).json(queryResult);
+  })
 });
+
+
+
 
 app.listen(3001);
 console.log('Hello there, server is running')

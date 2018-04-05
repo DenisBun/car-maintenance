@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button as MuiButton } from 'material-ui';
 
  import { darkGray, white, BLUE, GRAY, GREEN, WHITE } from '../../../constants/colors';

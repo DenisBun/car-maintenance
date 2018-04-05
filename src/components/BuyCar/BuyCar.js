@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
-import fetch from 'isomorphic-fetch';
 import { connect } from 'react-redux';
-import Checkbox from 'material-ui/Checkbox';
-import AutocompleteInput from '../Common/AutocompleteInut/AutocompleteInput';
 import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
 import { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import { FormControl } from 'material-ui/Form';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import Typography from 'material-ui/Typography';
@@ -19,7 +15,7 @@ import Button from '../Common/Button/Button';
 import Spinner from '../Common/Spinner/Spinner';
 import Car from '../Car/Car';
 import Header from '../Header/Header';
-import { CAR_SEARCH_API_URL, CAR_SEARCH_API_KEY, carSuggestions} from '../../config/carSearchApi';
+import { CAR_SEARCH_API_URL, CAR_SEARCH_API_KEY } from '../../config/carSearchApi';
 import { searchCar } from '../../actions/buyCar/buyCar';
 import './BuyCar.css';
 
@@ -50,7 +46,6 @@ class BuyCar extends Component {
   }
 
   handleChange = ({ target: { name, value } }) => {
-    const obj = {key: name, [name]:value};
     this.setState({ searchDetails: {...this.state.searchDetails, [name]:value} });
   };
 

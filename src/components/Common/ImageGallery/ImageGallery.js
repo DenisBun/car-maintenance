@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../../../../node_modules/react-image-gallery/styles/css/image-gallery.css';
 import ImgNotFound from './imgNotFound/image-not-found.png'
 import ImageGallery from 'react-image-gallery';

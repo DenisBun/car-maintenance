@@ -6,9 +6,7 @@ import Header from '../Header/Header';
 import Button from '../Common/Button/Button';
 import Input from '../Common/Input/Input';
 import { isValid, isLoggedIn } from '../../utils/utils';
-// import { GREEN } from 'constants/colorConfig';
 import { loginUser } from '../../actions/user/user';
-// import { greenLime } from 'constants/colors';
 
 import './LoginPage.css';
 

@@ -1,8 +1,3 @@
-// import {
-//   LOGIN_PATH,
-//   LOGOUT_PATH
-// } from 'config/api';
-// import http from 'utils/http';
 
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
@@ -28,12 +23,11 @@ export const userLoginRequest = () => ({
   callInProgress: true,
 });
 
-export const userLoginSuccess = response => ({
+export const userLoginSuccess = userInfo => ({
   type: USER_LOGIN_SUCCESS,
   timestamp: Date.now(),
   callInProgress: false,
-  userInfo: response.userInfo,
-  message: response.message,
+  userInfo,
 });
 
 export const userLoginFailure = response => ({

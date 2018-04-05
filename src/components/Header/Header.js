@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
@@ -117,8 +117,8 @@ class Header extends Component {
 
 
 
-export default connect(
+export default withRouter(connect(
   null, 
   { logoutUser }
-)(withStyles(styles)(Header));
+)(withStyles(styles)(Header)));
 
