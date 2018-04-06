@@ -81,7 +81,7 @@ export default class RegistrationPage extends Component {
   handleSubmit = event => {
     event.preventDefault();
     this.validateEmail();
-    if (this.validate() && this.props.isValidEmail) {
+    if (this.validate()) {
       const { email, password, passwordConfirm, isStudent } = this.state;
       this.props.updateRequiredData({
         email,

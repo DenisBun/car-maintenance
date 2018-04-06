@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
@@ -59,19 +60,22 @@ export const userLogoutFailure = response => ({
 });
 
 export const loginUser = creds => (dispatch => {
+  console.log(creds);
   dispatch(userLoginRequest());
-  // return http.post(LOGIN_PATH, creds)
-  //   .then(response => {
-  //     if (response.success) {
-        dispatch(
-          userLoginSuccess(creds)
-        );
-    //   } else {
-    //     dispatch(
-    //       userLoginFailure(response)
-    //     );
-    //   }
-    // });
+  return fetch('http://localhost:3001/users/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+    body: {hello: 'world'},
+  })
+    .then(res => res.json())
+    .then((response) => {
+      console.log(response);
+      // if(status === 200) dispatch(userLoginSuccess(creds))
+      // if(status === 400) dispatch(userLoginFailure)
+    })
 });
 
 export const logoutUser = () => (dispatch => {

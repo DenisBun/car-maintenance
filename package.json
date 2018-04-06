@@ -33,6 +33,7 @@
     "server": "cross-env NODE_ENV=development nodemon --config src/nodemon.json --experimental-modules server/index.mjs"
   },
   "devDependencies": {
+    "cors": "2.8.4",
     "cross-env": "5.1.4",
     "express": "4.16.3",
     "mysql": "2.15.0",
