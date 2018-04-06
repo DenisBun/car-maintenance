@@ -29,13 +29,14 @@ app.post('/users/registration', (req, res) => {
 });
 
 app.post('/users/login', (req, res) => {
-  console.log(req);
   let connection;
   initialConnection.then(conn => {
     connection = conn;
     return connection.query('SELECT * FROM users WHERE email=? and password=?', [req.body.email, req.body.password])
   }).then(queryResult => {
-    return !queryResult.length ? res.status(400).json('User not found') : res.status(200).json(queryResult);
+    return !queryResult.length
+      ? res.status(400).json({ status: 400, errorMessage: 'User not found'})
+      : res.status(200).json({ status: 200, queryResult });
   })
 });
 

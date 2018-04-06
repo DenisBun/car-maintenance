@@ -13,7 +13,7 @@ import './LoginPage.css';
 const mapStateToProps = state => ({
   isAuthentication: state.user.isAuthentication,
   isAuthenticated: state.user.isAuthenticated,
-  messageText: state.user.messageText,
+  errorMessage: state.user.errorMessage,
   errorCode: state.user.errorCode,
 });
 
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 export class LoginPage extends Component {
 
   state = {
-    login: '',
+    email: '',
     password: '',
     passwordError: [],
     errorsEmail: [],
@@ -34,8 +34,8 @@ export class LoginPage extends Component {
     }
   }
 
-  handleLoginChange = ({ target: { value } }) => {
-    this.setState({ login: value });
+  handleEmailChange = ({ target: { value } }) => {
+    this.setState({ email: value });
   };
 
   handlePasswordChange = ({ target: { value } }) => {
@@ -46,18 +46,24 @@ export class LoginPage extends Component {
     this.props.history.push('/Register');
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
     if (isValid(
-      [this.validateEmail(this.state.login),
+      [this.validateEmail(this.state.email),
         this.validatePassword(this.state.password)]
     )) {
       const creds = {
-        login: this.state.login,
+        email: this.state.email,
         password: this.state.password,
       };
-      this.props.loginUser(creds);
-      this.props.history.push('/');
+      await this.props.loginUser(creds);
+      if (this.props.errorMessage.length) {
+        this.setState({
+          errorsEmail: [...this.state.errorsEmail, this.props.errorMessage],
+        });
+        return;
+      } 
+      await this.props.history.push('/');
     }
   };
 
@@ -114,13 +120,13 @@ export class LoginPage extends Component {
                 <Input
                   shrink
                   fullWidth
-                  id="login"
-                  name="login"
+                  id="email"
+                  name="email"
                   error={this.state.errorsEmail.join('; ')}
-                  value={this.state.login}
+                  value={this.state.email}
                   onChange={e => {
                     this.setState({ errorsEmail: [] });
-                    this.handleLoginChange(e);
+                    this.handleEmailChange(e);
                   }}
                   placeholder="myemail@example.com"
                   marginBottom="30"

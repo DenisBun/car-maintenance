@@ -31,12 +31,11 @@ export const userLoginSuccess = userInfo => ({
   userInfo,
 });
 
-export const userLoginFailure = response => ({
+export const userLoginFailure = errorMessage => ({
   type: USER_LOGIN_FAILURE,
   timestamp: Date.now(),
   callInProgress: false,
-  errorCode: response.code,
-  errorMessage: response.message,
+  errorMessage,
 });
 
 export const userLogoutRequest = () => ({
@@ -51,30 +50,27 @@ export const userLogoutSuccess = () => ({
   timestamp: Date.now(),
 });
 
-export const userLogoutFailure = response => ({
+export const userLogoutFailure = errorMessage => ({
   type: USER_LOGOUT_FAILURE,
   callInProgress: false,
   timestamp: Date.now(),
-  errorCode: response.errorCode,
-  errorMessage: response.message,
+  errorMessage,
 });
 
 export const loginUser = creds => (dispatch => {
-  console.log(creds);
   dispatch(userLoginRequest());
   return fetch('http://localhost:3001/users/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      'Content-Type': 'application/json; charset=utf-8'
       },
-    body: {hello: 'world'},
+    body: JSON.stringify(creds),
   })
     .then(res => res.json())
-    .then((response) => {
-      console.log(response);
-      // if(status === 200) dispatch(userLoginSuccess(creds))
-      // if(status === 400) dispatch(userLoginFailure)
+    .then(({ status, errorMessage }) => {
+      if(status === 200) dispatch(userLoginSuccess(creds))
+      if(status === 400) dispatch(userLoginFailure(errorMessage))
     })
 });
 

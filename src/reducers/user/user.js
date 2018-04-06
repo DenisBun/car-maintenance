@@ -13,7 +13,7 @@ const initialState = {
   isAuthenticated: false,
   isAuthentication: false,
   userInfo: null,
-  messageText: '',
+  errorMessage: '',
 };
 
 const user = (state = initialState, action) => {
@@ -45,7 +45,7 @@ const user = (state = initialState, action) => {
         userInfo: null,
         loginErrorAt: action.timestamp,
         isAuthentication: false,
-        messageText: action.errorMessage,
+        errorMessage: action.errorMessage,
         errorCode: action.errorCode,
       };
 
