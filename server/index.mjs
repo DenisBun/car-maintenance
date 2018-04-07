@@ -22,9 +22,11 @@ app.post('/users/registration', (req, res) => {
     return connection.query('SELECT * FROM users')
   }).then(res => {
     const isEmailAvailable = res.some(({ email }) => email === req.body.email);
-    return !isEmailAvailable && connection.query('INSERT INTO users (email,password) VALUES(?,?)', [req.body.email, req.body.password]);
+    if (!isEmailAvailable) return connection.query('INSERT INTO users (email,password) VALUES(?,?)', [req.body.email, req.body.password]);
   }).then(queryResult => {
-    return !queryResult ? res.status(400).json('Email is already in use') : res.status(200).json(queryResult);
+    return !queryResult
+      ? res.status(400).json({ status: 400, registrationMessage: 'Email is already in use'})
+      : res.status(200).json({ status: 200, id: queryResult.insertId, role: 1 });
   })
 });
 
@@ -36,7 +38,7 @@ app.post('/users/login', (req, res) => {
   }).then(queryResult => {
     return !queryResult.length
       ? res.status(400).json({ status: 400, errorMessage: 'User not found'})
-      : res.status(200).json({ status: 200, queryResult });
+      : res.status(200).json({ status: 200, id: queryResult[0].id, role: queryResult[0].role });
   })
 });
 

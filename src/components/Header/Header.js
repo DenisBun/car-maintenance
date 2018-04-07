@@ -17,6 +17,9 @@ import Button from '../Common/Button/Button';
 import { isLoggedIn } from '../../utils/utils';
 import { logoutUser } from '../../actions/user/user';
 
+const mapStateToProps = state => ({
+  userInfo: state.user.userInfo,
+});
 
 const styles = {
   root: {
@@ -63,6 +66,7 @@ class Header extends Component {
             </Typography>
             {isLoggedIn()
               ? (<div>
+                  { this.props.userInfo.email && this.props.userInfo.email }
                   <IconButton
                     aria-owns={openUser ? 'menu-appbar' : null}
                     aria-haspopup="true"
@@ -118,7 +122,7 @@ class Header extends Component {
 
 
 export default withRouter(connect(
-  null, 
+  mapStateToProps, 
   { logoutUser }
 )(withStyles(styles)(Header)));
 

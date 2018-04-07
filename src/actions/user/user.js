@@ -1,22 +1,13 @@
 import fetch from 'isomorphic-fetch';
+import { HOST, headers, parseBody } from '../../config/fetchConfig';
 
-export const SET_USER_INFO = 'SET_USER_INFO';
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
-export const USER_LOGOUT_REQUEST = 'USER_LOGOUT_REQUEST';
-export const USER_LOGOUT_SUCCESS = 'USER_LOGOUT_SUCCESS';
-export const USER_LOGOUT_FAILURE = 'USER_LOGOUT_FAILURE';
-export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
-
-export const clearUser = () => ({
-  type: CLEAR_USER_INFO,
-});
-
-export const setUserInfo = userInfo => ({
-  type: SET_USER_INFO,
-  userInfo,
-});
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_REGISTRATION_REQUEST = 'USER_REGISTRATION_REQUEST';
+export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
+export const USER_REGISTRATION_FAILURE = 'USER_REGISTRATION_FAILURE';
 
 export const userLoginRequest = () => ({
   type: USER_LOGIN_REQUEST,
@@ -38,54 +29,62 @@ export const userLoginFailure = errorMessage => ({
   errorMessage,
 });
 
-export const userLogoutRequest = () => ({
-  type: USER_LOGOUT_REQUEST,
+export const userLogout = () => ({
+  type: USER_LOGOUT,
+  callInProgress: false,
+  timestamp: Date.now(),
+});
+
+export const userRegistrationRequest = creds => ({
+  type: USER_REGISTRATION_REQUEST,
+  timestamp: Date.now(),
   callInProgress: true,
-  timestamp: Date.now(),
 });
 
-export const userLogoutSuccess = () => ({
-  type: USER_LOGOUT_SUCCESS,
-  callInProgress: false,
+export const userRegistrationSuccess = userInfo => ({
+  type: USER_REGISTRATION_SUCCESS,
   timestamp: Date.now(),
+  callInProgress: false,
+  userInfo,
 });
 
-export const userLogoutFailure = errorMessage => ({
-  type: USER_LOGOUT_FAILURE,
-  callInProgress: false,
+export const userRegistrationFailure = registrationMessage => ({
+  type: USER_REGISTRATION_FAILURE,
   timestamp: Date.now(),
-  errorMessage,
+  callInProgress: false,
+  registrationMessage,
 });
+
 
 export const loginUser = creds => (dispatch => {
   dispatch(userLoginRequest());
-  return fetch('http://localhost:3001/users/login', {
+  return fetch(`${HOST}users/login`, {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
-      'Content-Type': 'application/json; charset=utf-8'
-      },
-    body: JSON.stringify(creds),
+    headers,
+    body: parseBody(creds),
   })
     .then(res => res.json())
-    .then(({ status, errorMessage }) => {
-      if(status === 200) dispatch(userLoginSuccess(creds))
+    .then(({ status, id, role, errorMessage }) => {
+      if(status === 200) dispatch(userLoginSuccess({ ...creds, id, role }))
       if(status === 400) dispatch(userLoginFailure(errorMessage))
     })
 });
 
 export const logoutUser = () => (dispatch => {
-  dispatch(userLogoutRequest());
-  // return http.post(LOGOUT_PATH, {})
-  //   .then(response => {
-  //     if (response.success) {
-        dispatch(
-          userLogoutSuccess()
-        );
-    //   } else {
-    //     dispatch(
-    //       userLogoutFailure(response)
-    //     );
-    //   }
-    // });
+  dispatch(userLogout());
+});
+
+
+export const registerUser = creds => (dispatch => {
+  dispatch(userRegistrationRequest());
+  return fetch(`${HOST}users/registration`, {
+    method: 'POST',
+    headers,
+    body: parseBody(creds),
+  })
+    .then(res => res.json())
+    .then(({ status, id, role, registrationMessage }) => {
+      if(status === 200) dispatch(userRegistrationSuccess({ ...creds, id, role }))
+      if(status === 400) dispatch(userRegistrationFailure(registrationMessage))
+    })
 });

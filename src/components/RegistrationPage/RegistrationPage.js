@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from '../Header/Header';
 import Button from '../Common/Button/Button';
 import Input from '../Common/Input/Input';
+import { registerUser } from '../../actions/user/user';
 import { isValid, isLoggedIn } from '../../utils/utils';
 
 import './RegistrationPage.css';
 
+const mapStateToProps = state => ({
+  registrationMessage: state.user.registrationMessage,
+});
 
-export default class RegistrationPage extends Component {
+export class RegistrationPage extends Component {
 
   state = {
-    login: '',
     email: '',
     password: '',
     passwordConfirm: '',
     passwordError: [],
-    errorsEmail: [this.props.messageText],
+    errorsEmail: [],
     errorsPassword: [],
     errorsConfirm: [],
   };
@@ -26,21 +30,6 @@ export default class RegistrationPage extends Component {
     this.setState({
       [name]: value,
     });
-  };
-
-  validateEmail = email => {
-    const emailPattern = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    const specialsPattern = /^(?=.*[! #%&])/;
-    const errors = [];
-
-    !emailPattern.test(email) && errors.push('Email pattern: myemail@example.com');
-    specialsPattern.test(email) && errors.push('Special characters are prohibited');
-
-    this.setState({
-      errorsEmail: [...errors],
-    });
-
-    return errors.length <= 0;
   };
 
   validatePassword = () => {
@@ -78,17 +67,18 @@ export default class RegistrationPage extends Component {
     ]);
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
-    this.validateEmail();
     if (this.validate()) {
-      const { email, password, passwordConfirm, isStudent } = this.state;
-      this.props.updateRequiredData({
-        email,
-        password,
-        passwordConfirm,
-        isStudent,
-      });
+      const { email, password} = this.state;
+      await this.props.registerUser({ email, password });
+      if (this.props.registrationMessage.length) {
+        this.setState({
+          errorsEmail: [...this.state.errorsEmail, this.props.registrationMessage],
+        });
+        return;
+      }
+      await this.props.history.push('/');
     }
   };
 
@@ -98,22 +88,22 @@ export default class RegistrationPage extends Component {
         <Header isRegistrationPage />
           <div className={`authForm loginForm`}>
             <div className='formLabel'>
-              Please, log in
+              Registration
             </div>
             <div className='form'>
               <form
                 onSubmit={this.handleSubmit}
               >
-                <label className='inputLabel' htmlFor="login">
+                <label className='inputLabel' htmlFor="email">
                   Login
                 </label>
                 <Input
                   shrink
                   fullWidth
-                  id="login"
-                  name="login"
+                  id="email"
+                  name="email"
                   error={this.state.errorsEmail.join('; ')}
-                  value={this.state.login}
+                  value={this.state.email}
                   onChange={e => {
                     this.setState({ errorsEmail: [] });
                     this.handleInputChange(e);
@@ -141,7 +131,7 @@ export default class RegistrationPage extends Component {
                   marginBottom="30"
                 />
                 <label className='inputLabel' htmlFor="passwordConfirm">
-                  {'Confirm password'}
+                  Confirm password
                 </label>
                 <Input
                   style={{ marginBottom: '10px' }}
@@ -176,3 +166,8 @@ export default class RegistrationPage extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(RegistrationPage);

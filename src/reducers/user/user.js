@@ -1,12 +1,11 @@
 import {
-  SET_USER_INFO,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAILURE,
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILURE,
-  CLEAR_USER_INFO
+  USER_LOGOUT,
+  USER_REGISTRATION_REQUEST,
+  USER_REGISTRATION_SUCCESS,
+  USER_REGISTRATION_FAILURE,
 } from '../../actions';
 
 const initialState = {
@@ -14,16 +13,11 @@ const initialState = {
   isAuthentication: false,
   userInfo: null,
   errorMessage: '',
+  registrationMessage: '',
 };
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_INFO:
-      return {
-        ...state,
-        userInfo: action.userInfo,
-        isAuthenticated: true,
-      };
     case USER_LOGIN_REQUEST:
       return {
         ...state,
@@ -37,7 +31,7 @@ const user = (state = initialState, action) => {
         userLoggedInAt: action.timestamp,
         isAuthenticated: true,
         isAuthentication: false,
-        messageText: action.message,
+        errorMessage: '',
       };
     case USER_LOGIN_FAILURE:
       return {
@@ -48,14 +42,7 @@ const user = (state = initialState, action) => {
         errorMessage: action.errorMessage,
         errorCode: action.errorCode,
       };
-
-    case USER_LOGOUT_REQUEST:
-      return {
-        ...state,
-        logOutCallStarted: action.timestamp,
-        isFetching: true,
-      };
-    case USER_LOGOUT_SUCCESS:
+    case USER_LOGOUT:
       return {
         ...state,
         userLoggedOutAt: action.timestamp,
@@ -64,21 +51,30 @@ const user = (state = initialState, action) => {
         isFetching: false,
         messageText: '',
       };
-    case USER_LOGOUT_FAILURE:
+    case USER_REGISTRATION_REQUEST:
       return {
         ...state,
-        logoutErrorAt: action.timestamp,
-        isFetching: false,
-        messageText: action.errorMessage,
-        errorCode: action.errorCode,
+        logInCallStarted: action.timestamp,
+        isAuthentication: true,
+      }; 
+    case USER_REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.userInfo,
+        userLoggedInAt: action.timestamp,
+        isAuthenticated: true,
+        isAuthentication: false,
+        registrationMessage: '',
       };
-    case CLEAR_USER_INFO:
+    case USER_REGISTRATION_FAILURE:
       return {
         ...state,
-        isAuthenticated: false,
         userInfo: null,
-        messageText: '',
-      };    
+        loginErrorAt: action.timestamp,
+        isAuthentication: false,
+        registrationMessage: action.registrationMessage,
+      };
+      
     default:
       return state;
   }
