@@ -64,8 +64,8 @@ export const loginUser = creds => (dispatch => {
     body: parseBody(creds),
   })
     .then(res => res.json())
-    .then(({ status, id, role, errorMessage }) => {
-      if(status === 200) dispatch(userLoginSuccess({ ...creds, id, role }))
+    .then(({ status, id, role, orders, errorMessage }) => {
+      if(status === 200) dispatch(userLoginSuccess({ ...creds, id, role, orders }))
       if(status === 400) dispatch(userLoginFailure(errorMessage))
     })
 });

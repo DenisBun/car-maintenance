@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
@@ -62,11 +63,17 @@ class Header extends Component {
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
               <Link to="/" className="pulse" style={{ textDecoration: 'none', color: 'white' }}>Car<span style={{ color: '#5383d3'}}>Manager</span></Link>
-              {/* { isLoggedIn() && <Link to="/BuyCar">Buy car</Link> } */}
             </Typography>
             {isLoggedIn()
-              ? (<div>
-                  { this.props.userInfo.email && this.props.userInfo.email }
+              ? (<div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ marginRight: '20px', cursor: 'pointer'}}>
+                    <Badge
+                      badgeContent={this.props.userInfo.orders.length}
+                      onClick={() => this.props.history.push(`/Orders/${this.props.userInfo.id}`)}
+                    >
+                      <i className="material-icons">time_to_leave</i>
+                    </Badge>
+                  </div>
                   <IconButton
                     aria-owns={openUser ? 'menu-appbar' : null}
                     aria-haspopup="true"
@@ -98,8 +105,9 @@ class Header extends Component {
                       Log out
                     </MenuItem>
                   </Menu>
+                  { this.props.userInfo.email && this.props.userInfo.email }
                 </div>)
-              : (<ul style={{ display: 'flex', alignItems: 'center' }}>
+              : (<div style={{ display: 'flex', alignItems: 'center' }}>
                   {!this.props.isLoginPage &&
                     <Link to="/Login" style={{ textDecoration: 'none', color: 'white', fontFamily: 'Oswald, sans-serif', fontSize: '1.3125rem', fontWeight: 500 }}>
                       Login
@@ -110,7 +118,7 @@ class Header extends Component {
                       <Button>Sign up</Button>
                     </Link>
                   }
-                </ul>)              
+                </div>)              
             }
           </Toolbar>
         </AppBar>

@@ -49,5 +49,11 @@ export const muiTheme = createMuiTheme({
         textOverflow: 'ellipsis',
       },
     },
+    MuiBadge: {
+      badge: {
+        fontSize: '0.9rem',
+        backgroundColor: '#03A9F4',
+      },
+    },
   },
 });

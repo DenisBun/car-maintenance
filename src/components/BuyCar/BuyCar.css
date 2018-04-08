@@ -32,3 +32,9 @@
   width: 400px;
   border-radius: 15px;
 }
+
+.buyCarWrapper {
+  height: calc(100vh - 64px);
+  background-color: #605a57;
+  padding-top: 20px;
+}

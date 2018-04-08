@@ -17,9 +17,17 @@ module.exports = {
       maintenanceId: {
         type: Sequelize.INTEGER,
       },
-      createdAt: {
+      status: {
+        type: Sequelize.ENUM('IN_PROGRESS', 'RESOLVED'),
         allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: 'IN_PROGRESS',
+      },
+      resolutionDate: {
+        type: Sequelize.DATE,
+      },
+      createdAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
       },      
     });
   },

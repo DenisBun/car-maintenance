@@ -65,7 +65,7 @@ class BuyCar extends Component {
     return (
       <React.Fragment>
         <Header />
-        <div style ={{ paddingTop: '20px' }}>
+        <div className="buyCarWrapper">
           <div className="buyCarForm">
             <label className='inputLabel' htmlFor="make">
               Car make
