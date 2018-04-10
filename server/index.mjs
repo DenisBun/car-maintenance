@@ -74,11 +74,40 @@ app.post('/users/:id/car', (req, res) => {
   initialConnection
   .then(conn => {
     connection = conn;
-    return connection.query('INSERT INTO cars (carName,registrationNumber) VALUES(?,?)', [req.body.carName, req.body.registrationNumber])
+    return connection.query('INSERT INTO cars (carName,registrationNumber,userId) VALUES(?,?,?)',
+      [req.body.carName, req.body.registrationNumber, req.body.userId])
   })
   .then(queryResult => {
     return res.status(200).json({ status: 200, queryResult });
   })
+});
+
+app.get('/maintenance/upgrade', (req, res) => {
+  let connection;
+  initialConnection
+  .then(conn => {
+    connection = conn;
+    return connection.query('SELECT * FROM maintenances WHERE type=?', ['UPGRADE'])
+  })
+  .then(queryResult => {
+    return res.status(200).json({ status: 200, maintenance: queryResult });
+  })
+});
+
+app.post('/users/:id/order', (req, res) => {
+  console.log(req.body);
+  let connection;
+  initialConnection
+  .then(conn => {
+    connection = conn;
+    req.body.forEach(order => {
+      return Promise.all(connection.query('INSERT INTO orders (userId,carId,maintenanceId) VALUES(?,?,?)',
+        [req.params.id, order.car, order.maintenanceId]))
+    })
+    .catch(()=> res.status(200))
+  })
+  .catch(() => res.status(200))
+
 });
 
 
