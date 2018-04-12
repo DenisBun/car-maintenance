@@ -1,0 +1,23 @@
+.notFoundWrapper {
+  height: 100vh;
+  width: 100%;
+  background: url('./img/Funny_Broken_Car_in_Home_Images.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: bottom center;
+  background-origin: content-box;
+}
+
+.errShout {
+  text-align: center;
+  color: firebrick;
+  font-weight: bold;
+  font-size: 300px;
+}
+
+.errSubShout {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 80px;
+}

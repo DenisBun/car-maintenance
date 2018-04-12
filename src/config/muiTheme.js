@@ -55,5 +55,13 @@ export const muiTheme = createMuiTheme({
         backgroundColor: '#03A9F4',
       },
     },
+    MuiTableCell: {
+      typeHead: {
+        fontSize: '1rem',
+      },
+      typeBody: {
+        fontSize: '1rem',
+      },
+    },
   },
 });

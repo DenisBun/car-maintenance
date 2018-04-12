@@ -95,6 +95,19 @@ app.get('/maintenance/upgrade', (req, res) => {
   })
 });
 
+app.get('/users/:id/order', (req, res) => {
+  let connection;
+  initialConnection
+  .then(conn => {
+    connection = conn;
+    return Promise.all (req.body.map(order => {
+      connection.query('INSERT INTO orders (userId,carId,maintenanceId,createdAt) VALUES(?,?,?,?)',
+        [req.params.id, order.carId, order.maintenanceId,moment(moment.now()).format()])
+    }));
+  })
+  .then(() => res.status(200).json({}))
+});
+
 app.post('/users/:id/order', (req, res) => {
   let connection;
   initialConnection
@@ -102,11 +115,10 @@ app.post('/users/:id/order', (req, res) => {
     connection = conn;
     return Promise.all (req.body.map(order => {
       connection.query('INSERT INTO orders (userId,carId,maintenanceId,createdAt) VALUES(?,?,?,?)',
-        [req.params.id, order.car, order.maintenanceId,moment(moment.now()).format()])
+        [req.params.id, order.carId, order.maintenanceId,moment(moment.now()).format()])
     }));
   })
   .then(() => res.status(200).json({}))
-
 });
 
 

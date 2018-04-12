@@ -6,6 +6,7 @@ import RegistrationPage from './components/RegistrationPage/RegistrationPage';
 import BuyCar from './components/BuyCar/BuyCar';
 import UserOders from './components/UserOrders/UserOrders';
 import UpgradeCar from './components/UpgradeCar/UpgradeCar';
+import NotFound from './components/NotFound/NotFound';
 
 const Routes = () => (
   <Router>
@@ -16,7 +17,8 @@ const Routes = () => (
       <Route path="/BuyCar" component={BuyCar} />
       <Route path="/UpgradeCar" component={UpgradeCar} />
       <Route path="/Orders/:userId" component={UserOders} />
-     {/* <Route component={NotFound} /> */}
+      {/* <Route path="/Admin" component={AdminPage} /> */}
+      <Route component={NotFound} />
     </Switch>
   </Router>
 );

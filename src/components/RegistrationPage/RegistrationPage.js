@@ -86,79 +86,81 @@ export class RegistrationPage extends Component {
     return (
       <div>
         <Header isRegistrationPage />
-          <div className={`authForm loginForm`}>
-            <div className='formLabel'>
-              Registration
-            </div>
-            <div className='form'>
-              <form
-                onSubmit={this.handleSubmit}
-              >
-                <label className='inputLabel' htmlFor="email">
-                  Login
-                </label>
-                <Input
-                  shrink
-                  fullWidth
-                  id="email"
-                  name="email"
-                  error={this.state.errorsEmail.join('; ')}
-                  value={this.state.email}
-                  onChange={e => {
-                    this.setState({ errorsEmail: [] });
-                    this.handleInputChange(e);
-                  }}
-                  placeholder="myemail@example.com"
-                  marginBottom="30"
-                />
-                <label className='inputLabel' htmlFor="password">
-                  Password
-                </label>
-                <Input
-                  shrink
-                  fullWidth
-                  min="1"
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="********"
-                  value={this.state.password}
-                  onChange={e => {
-                    this.setState({ passwordError: [] });
-                    this.handleInputChange(e);
-                  }}
-                  error={this.state.passwordError.join('; ')}
-                  marginBottom="30"
-                />
-                <label className='inputLabel' htmlFor="passwordConfirm">
-                  Confirm password
-                </label>
-                <Input
-                  style={{ marginBottom: '10px' }}
-                  shrink
-                  fullWidth
-                  type="password"
-                  id="passwordConfirm"
-                  name="passwordConfirm"
-                  placeholder="********"
-                  value={this.state.passwordConfirm}
-                  onChange={(e) => {
-                    this.setState({ errorsConfirm: [] });
-                    this.handleInputChange(e);
-                  }}
-                  error={this.state.errorsConfirm.join('; ')}
-                />
-                <Button
-                  fullWidth
-                  className='login'
-                  type="submit"
-                >            
-                  Sign up              
-                </Button>
-              </form>
-              <div className="signup-hint">
-                <span>Already have an account?</span>
-                <span><Link to="/Login">Log in</Link></span>
+          <div className="bwmBackground">
+            <div className={`authForm loginForm`}>
+              <div className='formLabel'>
+                Registration
+              </div>
+              <div className='form'>
+                <form
+                  onSubmit={this.handleSubmit}
+                >
+                  <label className='inputLabel' htmlFor="email">
+                    Login
+                  </label>
+                  <Input
+                    shrink
+                    fullWidth
+                    id="email"
+                    name="email"
+                    error={this.state.errorsEmail.join('; ')}
+                    value={this.state.email}
+                    onChange={e => {
+                      this.setState({ errorsEmail: [] });
+                      this.handleInputChange(e);
+                    }}
+                    placeholder="myemail@example.com"
+                    marginBottom="30"
+                  />
+                  <label className='inputLabel' htmlFor="password">
+                    Password
+                  </label>
+                  <Input
+                    shrink
+                    fullWidth
+                    min="1"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="********"
+                    value={this.state.password}
+                    onChange={e => {
+                      this.setState({ passwordError: [] });
+                      this.handleInputChange(e);
+                    }}
+                    error={this.state.passwordError.join('; ')}
+                    marginBottom="30"
+                  />
+                  <label className='inputLabel' htmlFor="passwordConfirm">
+                    Confirm password
+                  </label>
+                  <Input
+                    style={{ marginBottom: '10px' }}
+                    shrink
+                    fullWidth
+                    type="password"
+                    id="passwordConfirm"
+                    name="passwordConfirm"
+                    placeholder="********"
+                    value={this.state.passwordConfirm}
+                    onChange={(e) => {
+                      this.setState({ errorsConfirm: [] });
+                      this.handleInputChange(e);
+                    }}
+                    error={this.state.errorsConfirm.join('; ')}
+                  />
+                  <Button
+                    fullWidth
+                    className='login'
+                    type="submit"
+                  >            
+                    Sign up              
+                  </Button>
+                </form>
+                <div className="signup-hint">
+                  <span>Already have an account?</span>
+                  <span><Link to="/Login">Log in</Link></span>
+                </div>
               </div>
             </div>
           </div>

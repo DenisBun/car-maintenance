@@ -16,6 +16,7 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
+import './UpgradeCar.css';
 
 import { handleUserOrders } from '../../actions/user/user';
 import { HOST, parseBody, headers } from '../../config/fetchConfig';
@@ -40,6 +41,7 @@ const styles = theme => ({
     width: '800px',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    margin: '0 auto',
   },
   table: {
     minWidth: 400,
@@ -82,6 +84,7 @@ class UpgradeCar extends React.Component {
     .then(() => {
       this.props.handleUserOrders(this.state.userOrders)
     })
+    .then(() => this.props.history.push(`/Orders/${this.props.userInfo.id}`))
     
   };
 
@@ -99,21 +102,30 @@ class UpgradeCar extends React.Component {
     }))
   };
 
-
+  // removeItemFromOrder = (maintenanceId, carId) => {
+  //   this.setState({
+  //     userOrders: [this.state.userOrders.filter(order => order.maintenanceId !== maintenanceId && order.car !== carId)]
+  //   })
+  //   console.log(this.state.userOrders);
+  // };
 
   render() {
     return (
-      <div>
+      <div className="upgradeCarWrapper">
         <Header />
-        <div>
+        <div className="carsWrapper">
+          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '30px' }}>
+              Choose car to upgrade
+          </div>
           {
             this.state.cars.length
               ? (
                 <FormControl className={this.props.classes.formControl}>
-                  <InputLabel htmlFor="cars">Select you car</InputLabel>
+                  <InputLabel style={{ color: 'white' }} htmlFor="cars">Select you car</InputLabel>
                   <Select
                     value={this.state.currentCar}
                     onChange={this.handleChange}
+                    style={{ color: 'white' }}
                     inputProps={{
                       name: 'currentCar',
                       id: 'cars',
@@ -130,55 +142,55 @@ class UpgradeCar extends React.Component {
               )
               : <div>You dont have any cars registered to our system yet, please add one</div>
           }
-        </div>
-        <div>
-          <ExpansionPanel style={{ marginBottom: '20px' }}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              Add a new car
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>                
-            <label className='inputLabel' htmlFor="carName">
-                Car Name
-              </label>
-              <Input
-                shrink
-                fullWidth
-                min="1"
-                type="text"
-                id="carName"
-                name="carName"
-                placeholder="Nissan"
-                value={this.state.carName}
-                onChange={e => {
-                  this.handleChange(e);
-                }}
-              />
-              <label className='inputLabel' htmlFor="carRegistrationNumber">
-                Car Registration Number
-              </label>
-              <Input
-                shrink
-                fullWidth
-                min="1"
-                type="text"
-                id="carRegistrationNumber"
-                name="carRegistrationNumber"
-                placeholder="HT5555-I3"
-                value={this.state.carRegistrationNumber}
-                onChange={e => {
-                  this.handleChange(e);
-                }}
-              />
-              <Button
-                onClick={() => this.addNewCar({ carName: this.state.carName, registrationNumber: this.state.carRegistrationNumber })}
-              >
-                Add car
-              </Button>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </div>
-        <div>
           <div>
+            <ExpansionPanel style={{ marginBottom: '20px' }}>
+              <ExpansionPanelSummary style={{ color: 'black' }} expandIcon={<ExpandMoreIcon />}>
+                Add a new car
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails style={{ flexDirection: 'column' }}>                
+              <label className='inputLabel' htmlFor="carName">
+                  Car Name
+                </label>
+                <Input
+                  shrink
+                  fullWidth
+                  min="1"
+                  type="text"
+                  id="carName"
+                  name="carName"
+                  placeholder="Nissan"
+                  value={this.state.carName}
+                  onChange={e => {
+                    this.handleChange(e);
+                  }}
+                />
+                <label className='inputLabel' htmlFor="carRegistrationNumber">
+                  Car Registration Number
+                </label>
+                <Input
+                  shrink
+                  fullWidth
+                  min="1"
+                  type="text"
+                  id="carRegistrationNumber"
+                  name="carRegistrationNumber"
+                  placeholder="HT5555-I3"
+                  value={this.state.carRegistrationNumber}
+                  onChange={e => {
+                    this.handleChange(e);
+                  }}
+                />
+                <Button
+                  onClick={() => this.addNewCar({ carName: this.state.carName, registrationNumber: this.state.carRegistrationNumber })}
+                >
+                  Add car
+                </Button>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </div>
+        </div>
+        <div className="priceListWrapper">
+          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '30px' }}>
             Price List
           </div>  
           <Paper className={this.props.classes.tableWrapper}>
@@ -201,7 +213,7 @@ class UpgradeCar extends React.Component {
                       <TableCell>
                         <Button
                           onClick={() => this.handleUserOrders(
-                            { car: this.state.cars.filter(({ carName }) => this.state.currentCar === carName)[0].id, maintenanceId: n.id, maintenanceTitle: n.title, maintenancePrice: n.price}
+                            { carName: this.state.currentCar, carId: this.state.cars.filter(({ carName }) => this.state.currentCar === carName)[0].id, maintenanceId: n.id, maintenanceTitle: n.title, maintenancePrice: n.price}
                           )}
                         >
                           Add to cart
@@ -214,54 +226,56 @@ class UpgradeCar extends React.Component {
             </Table>
           </Paper>
         </div>
-        {
-          this.state.userOrders.length
-            ? (
-              <div>
+        <div>
+          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '30px' }}>
+              Your orders
+          </div>
+          {
+            this.state.userOrders.length
+              ? (
                 <div>
-                  Your orders
+                  <Paper className={this.props.classes.tableWrapper}>
+                  <Table className={this.props.classes.table}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Car to upgrade</TableCell>
+                        <TableCell numeric>Maintenance Type</TableCell>
+                        <TableCell numeric>Price ($)</TableCell>
+                        <TableCell />
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {this.state.userOrders.map(order => {
+                        return (
+                          <TableRow key={order.maintenanceId}>
+                            <TableCell>{ this.state.cars.filter(({ id }) => order.carId === id)[0].carName || ''}</TableCell>
+                            <TableCell numeric>{order.maintenanceTitle}</TableCell>
+                            <TableCell numeric>{order.maintenancePrice}</TableCell>
+                            <TableCell>
+                              <Button>
+                                Delete
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </Paper>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                  <span style={{ fontSize: '30px', marginRight: '10px' }}>
+                    {`Total price: ${
+                      this.state.userOrders.map(order => order.maintenancePrice)
+                        .reduce((sum, current) => sum + current)
+                      } $`} 
+                  </span>
+                  <Button colorConfig="GREEN" onClick={() => this.handleMakeOrder()}>Make an order</Button>    
                 </div>  
-                <Paper className={this.props.classes.tableWrapper}>
-                <Table className={this.props.classes.table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Car to upgrade</TableCell>
-                      <TableCell numeric>Maintenance Type</TableCell>
-                      <TableCell numeric>Price ($)</TableCell>
-                      <TableCell />
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {this.state.userOrders.map(order => {
-                      return (
-                        <TableRow key={order.maintenanceId}>
-                          <TableCell>{ this.state.cars.filter(({ id }) => order.car === id)[0].carName}</TableCell>
-                          <TableCell numeric>{order.maintenanceTitle}</TableCell>
-                          <TableCell numeric>{order.maintenancePrice}</TableCell>
-                          <TableCell>
-                            <Button>
-                              Delete
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </Paper>
-              <div>
-                <span>
-                  {`Total price: ${
-                    this.state.userOrders.map(order => order.maintenancePrice)
-                      .reduce((sum, current) => sum + current)
-                    } $`} 
-                </span>
-                <Button onClick={() => this.handleMakeOrder()}>Make an order</Button>    
-              </div>  
-            </div>
-            )
-            : 'No orders yet'
-        }  
+              </div>
+              )
+              : <div style={{ textAlign: 'center' }}>No new orders yet</div>
+          }
+        </div>  
       </div>  
     );
   }

@@ -11,19 +11,11 @@ html, body {
 
 .App {
   min-height: 100vh;
-	background: linear-gradient(-45deg, rgb(177, 89, 63), #69505ab5, #4b73b8, #23D5AB);
-	background-size: 400% 400%;
-	animation: Gradient 15s ease infinite;
+  width: 100%;
+  background: url('./img/mechanic-wallpaper.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: bottom center;
+  background-origin: content-box;
 }
 
-@keyframes Gradient {
-	0% {
-		background-position: 0% 50%
-	}
-	50% {
-		background-position: 100% 50%
-	}
-	100% {
-		background-position: 0% 50%
-	}
-}

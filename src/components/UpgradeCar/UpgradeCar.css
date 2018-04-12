@@ -1,0 +1,28 @@
+.upgradeCarWrapper {
+  height: 100vh;
+  color: white;
+  width: 100%;
+  background: url('./img/car-parts-wallpaper.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: bottom center;
+  background-origin: content-box;
+}
+
+.carsWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.inputLabel {
+  color: black;
+}
+
+.priceListWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

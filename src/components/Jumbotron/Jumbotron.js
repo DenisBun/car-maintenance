@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import jumbotronImg from './img/old-car-wallpaper.jpg';
 import './Jumbotron.css';
 import Button from '../Common/Button/Button';
 

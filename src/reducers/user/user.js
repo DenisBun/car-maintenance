@@ -78,7 +78,9 @@ const user = (state = initialState, action) => {
     case ADD_USER_ORDERS:
       return {
         ...state,
-        userInfo: { ...state.userInfo, orders: action.userOrders },
+        userInfo: { 
+          orders: [...state.userInfo.orders, ...action.userOrders]
+        },
       };  
       
     default:
