@@ -5,21 +5,23 @@
   justify-content: space-around;
   align-items: center;
   padding-top: 75px;
-  background-color: #605a57;
-  min-height: calc(100vh - 64px); 
 }
 
 [class^='imghvr-'], [class*=' imghvr-'] {
-  background: linear-gradient(to bottom, #f0f9ff 0%,#cbebff 47%,#a1dbff 100%);
+  background: #949191de;
 }
 
 [class*=' imghvr-'] figcaption, [class^=imghvr-] figcaption {
   cursor: pointer;
   text-transform: uppercase;
-  background: #5383d3;
+  background: #747272;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 50px;
   font-weight: bold;
+}
+
+[class*=' imghvr-shutter-in-']:after, [class*=' imghvr-shutter-in-']:before, [class^=imghvr-shutter-in-]:after, [class^=imghvr-shutter-in-]:before {
+  background: #35312e;
 }

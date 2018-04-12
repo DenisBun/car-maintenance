@@ -43,11 +43,7 @@
 
 .attentionText {
   color: #5383d3;
-  text-shadow:
-  -1px -1px 0 #f5f5f5,  
-   1px -1px 0 #f5f5f5,
-   -1px 1px 0 #f5f5f5,
-    1px 1px 0 #f5f5f5;
+  font-weight: bold;
 }
 
 .pulse-action {

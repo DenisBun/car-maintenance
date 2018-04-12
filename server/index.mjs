@@ -100,12 +100,9 @@ app.get('/users/:id/order', (req, res) => {
   initialConnection
   .then(conn => {
     connection = conn;
-    return Promise.all (req.body.map(order => {
-      connection.query('INSERT INTO orders (userId,carId,maintenanceId,createdAt) VALUES(?,?,?,?)',
-        [req.params.id, order.carId, order.maintenanceId,moment(moment.now()).format()])
-    }));
+    return connection.query('SELECT * FROM orders WHERE userId=?', [req.params.id])
   })
-  .then(() => res.status(200).json({}))
+  .then(queryResult => res.status(200).json(queryResult))
 });
 
 app.post('/users/:id/order', (req, res) => {
