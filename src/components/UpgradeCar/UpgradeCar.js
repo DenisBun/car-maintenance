@@ -16,6 +16,8 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
+
+import { handleUserOrders } from '../../actions/user/user';
 import { HOST, parseBody, headers } from '../../config/fetchConfig';
 
 const mapStateToProps = state => ({
@@ -77,7 +79,9 @@ class UpgradeCar extends React.Component {
       headers,
       body: parseBody(this.state.userOrders),
     })
-    .then(() => console.log('dispatch action to change orders length in header and redirect to orders'))
+    .then(() => {
+      this.props.handleUserOrders(this.state.userOrders)
+    })
     
   };
 
@@ -267,5 +271,5 @@ class UpgradeCar extends React.Component {
 
 export default connect(
   mapStateToProps,
-  null
+  { handleUserOrders }
 )(withStyles(styles)(UpgradeCar));

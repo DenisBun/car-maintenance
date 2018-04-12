@@ -2,6 +2,7 @@ import mysql from 'promise-mysql';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import moment from 'moment';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -95,18 +96,16 @@ app.get('/maintenance/upgrade', (req, res) => {
 });
 
 app.post('/users/:id/order', (req, res) => {
-  console.log(req.body);
   let connection;
   initialConnection
   .then(conn => {
     connection = conn;
-    req.body.forEach(order => {
-      return Promise.all(connection.query('INSERT INTO orders (userId,carId,maintenanceId) VALUES(?,?,?)',
-        [req.params.id, order.car, order.maintenanceId]))
-    })
-    .catch(()=> res.status(200))
+    return Promise.all (req.body.map(order => {
+      connection.query('INSERT INTO orders (userId,carId,maintenanceId,createdAt) VALUES(?,?,?,?)',
+        [req.params.id, order.car, order.maintenanceId,moment(moment.now()).format()])
+    }));
   })
-  .catch(() => res.status(200))
+  .then(() => res.status(200).json({}))
 
 });
 

@@ -27,7 +27,7 @@ module.exports = {
       },
       createdAt: {
         allowNull: true,
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },      
     });
   },

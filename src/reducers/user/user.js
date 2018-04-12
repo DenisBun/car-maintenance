@@ -6,6 +6,7 @@ import {
   USER_REGISTRATION_REQUEST,
   USER_REGISTRATION_SUCCESS,
   USER_REGISTRATION_FAILURE,
+  ADD_USER_ORDERS,
 } from '../../actions';
 
 const initialState = {
@@ -74,6 +75,11 @@ const user = (state = initialState, action) => {
         isAuthentication: false,
         registrationMessage: action.registrationMessage,
       };
+    case ADD_USER_ORDERS:
+      return {
+        ...state,
+        userInfo: { ...state.userInfo, orders: action.userOrders },
+      };  
       
     default:
       return state;

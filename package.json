@@ -9,7 +9,7 @@
     "lodash": "4.17.5",
     "material-ui": "1.0.0-beta.33",
     "material-ui-icons": "1.0.0-beta.36",
-    "moment": "2.21.0",
+    "moment": "^2.21.0",
     "promise-mysql": "^3.2.1",
     "react": "16.2.0",
     "react-dom": "16.2.0",

@@ -8,6 +8,7 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const USER_REGISTRATION_REQUEST = 'USER_REGISTRATION_REQUEST';
 export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
 export const USER_REGISTRATION_FAILURE = 'USER_REGISTRATION_FAILURE';
+export const ADD_USER_ORDERS = 'ADD_USER_ORDERS';
 
 export const userLoginRequest = () => ({
   type: USER_LOGIN_REQUEST,
@@ -55,6 +56,10 @@ export const userRegistrationFailure = registrationMessage => ({
   registrationMessage,
 });
 
+export const addUserOrders = userOrders => ({
+  type: ADD_USER_ORDERS,
+  userOrders
+});
 
 export const loginUser = creds => (dispatch => {
   dispatch(userLoginRequest());
@@ -74,6 +79,9 @@ export const logoutUser = () => (dispatch => {
   dispatch(userLogout());
 });
 
+export const handleUserOrders = userOrders => (dispatch => {
+  dispatch(addUserOrders(userOrders));
+});
 
 export const registerUser = creds => (dispatch => {
   dispatch(userRegistrationRequest());
