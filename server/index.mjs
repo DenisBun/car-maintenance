@@ -100,7 +100,10 @@ app.get('/users/:id/order', (req, res) => {
   initialConnection
   .then(conn => {
     connection = conn;
-    return connection.query('SELECT * FROM orders WHERE userId=?', [req.params.id])
+    return connection.query(`SELECT C.carName, C.registrationNumber, M.title, M.type, M.price, O.status, O.createdAt FROM orders O
+      JOIN cars C ON O.carId = C.id
+      JOIN maintenances M ON m.id = O.maintenanceId
+      WHERE O.userId=?`, [req.params.id])
   })
   .then(queryResult => res.status(200).json(queryResult))
 });
@@ -117,8 +120,6 @@ app.post('/users/:id/order', (req, res) => {
   })
   .then(() => res.status(200).json({}))
 });
-
-
 
 app.listen(3001);
 console.log('Hello there, server is running')

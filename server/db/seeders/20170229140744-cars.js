@@ -17,6 +17,18 @@ module.exports = {
       carName: 'Ford Fiesta',
       registrationNumber: '2343-SA3',
       userId: 2,
+    },
+    {
+      id: 4,
+      carName: 'Toyota Supra',
+      registrationNumber: 'AS-666',
+      userId: 2,
+    },
+    {
+      id: 5,
+      carName: 'Honda Civic',
+      registrationNumber: 'FE-55-BY',
+      userId: 2,
     }
     ], {}),
 

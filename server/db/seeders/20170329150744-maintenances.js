@@ -17,7 +17,31 @@ module.exports = {
       title: 'Autodiagnostics',
       type: 'UPGRADE',
       price: 45,
-    }
+    },
+    {
+      id: 4,
+      title: 'Repaint',
+      type: 'UPGRADE',
+      price: 48,
+    },
+    {
+      id: 5,
+      title: 'Wheels balancing',
+      type: 'UPGRADE',
+      price: 78,
+    },
+    {
+      id: 6,
+      title: 'Engine upgrade',
+      type: 'UPGRADE',
+      price: 450,
+    },
+    {
+      id: 7,
+      title: 'Nitrous Oxide System (NOS)',
+      type: 'UPGRADE',
+      price: 5000,
+    },
     ], {}),
 
   down: queryInterface => queryInterface.bulkDelete('Maintenances', null, {})
