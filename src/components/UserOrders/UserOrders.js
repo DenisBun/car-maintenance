@@ -7,6 +7,7 @@ import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
+import CheckCircle from 'material-ui-icons/CheckCircle';
 
 import './UserOrders.css';
 
@@ -15,12 +16,17 @@ const styles = theme => ({
     paddingTop: 16,
     paddingBottom: 16,
     marginTop: theme.spacing.unit * 3,
-    width: '500px',
+    maxWidth: '500px',
     margin: '0 auto',
   }),
   progress: {
     margin: theme.spacing.unit * 2,
   },
+  icon: {
+    color: 'mediumseagreen',
+    width: '55px',
+    height: '55px',
+  }
 });
 
 const mapStateToProps = state => ({
@@ -68,7 +74,7 @@ class UserOrders extends React.Component {
                         order.status === 'RESOLVED' &&
                           (
                             <div>
-                              RESOLVED
+                              <CheckCircle className={this.props.classes.icon} />
                             </div> 
                           )
                       }  
